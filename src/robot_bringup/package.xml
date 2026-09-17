@@ -3,9 +3,9 @@
 <package format="3">
   <name>robot_bringup</name>
   <version>0.0.0</version>
-  <description>TODO: Package description</description>
-  <maintainer email="ja@todo.todo">ja</maintainer>
-  <license>TODO: License declaration</license>
+  <description>Launch and bringup package for ROS 2 multi-node robot system</description>
+  <maintainer email="jeanagnus457@gmail.com">ja</maintainer>
+  <license>MIT</license>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
 

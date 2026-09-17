@@ -12,6 +12,43 @@ find_package(tf2_ros REQUIRED)
 find_package(nav_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
 
+
+add_executable(odometry_publisher src/odometry_publisher.cpp src/odometry_publisher_main.cpp)
+add_executable(static_tf_publisher src/static_tf_publisher.cpp)
+
+
+
+
+ament_target_dependencies(
+  odometry_publisher
+  rclcpp
+  nav_msgs
+  tf2_ros
+  geometry_msgs
+)
+
+ament_target_dependencies(
+  static_tf_publisher
+  rclcpp
+  tf2_ros
+  geometry_msgs
+)
+
+target_include_directories(
+  odometry_publisher
+  PUBLIC
+  include
+)
+
+
+install(
+  TARGETS odometry_publisher
+  static_tf_publisher
+  DESTINATION lib/${PROJECT_NAME}
+)
+
+
+
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
   # the following line skips the linter which checks for copyrights
@@ -22,6 +59,32 @@ if(BUILD_TESTING)
   # a copyright and license is added to all source files
   set(ament_cmake_cpplint_FOUND TRUE)
   ament_lint_auto_find_test_dependencies()
+endif()
+
+
+
+if(BUILD_TESTING)
+  find_package(ament_cmake_gtest REQUIRED)
+
+  ament_add_gtest(
+    test_odometry_publisher
+    test/test_odometry_publisher.cpp
+    src/odometry_publisher.cpp
+  )
+
+  target_include_directories(
+    test_odometry_publisher
+    PUBLIC
+    include
+  )
+
+  ament_target_dependencies(
+    test_odometry_publisher
+    rclcpp
+    nav_msgs
+    tf2_ros
+    geometry_msgs
+  )
 endif()
 
 ament_package()
